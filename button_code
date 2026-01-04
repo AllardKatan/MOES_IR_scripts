@@ -1,0 +1,17 @@
+square: true
+type: grid
+cards:
+  - type: tile
+    entity: moes_ir_control
+    name: press this
+    icon: mdi:power-on
+    show_entity_picture: true
+    hide_state: true
+    vertical: true
+    tap_action:
+      action: perform-action
+      perform_action: script.moes_ir_control
+      target: {}
+      data:
+        command: command_1
+    features_position: bottom
