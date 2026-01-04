@@ -1,0 +1,29 @@
+moes_ir_control:
+  fields:
+    command:
+      description: the command to send
+      example: command_1
+  variables:
+    codes:
+      command_1: BVUjhBEzAuATAQOmBjMC4AcBQBPAA+ATAcAj4A8HwAEJ1a1VI7UIMwL//+ArBwB44A43CXgC//9VI7UIMwI= # these are example names and values
+      command_2: BUMjgBE0AuATAQOiBjQC4AcBQBPAA0ABwAvgAwfAAUAT4AsBQBdAA0ABCbOtQyPJCDQC///gAgcCCDQC
+      #etcetera, give them any name, the value is the code that has to be sent
+    device_ieee: 18:0D:F9:FF:FE:D4:87:4D # replace this with the correct IEEE
+    codedata: '{{codes.get(command,command_1)}}' # behind the comma is a default value, be sure to update that
+  sequence:
+  - action: zha.issue_zigbee_cluster_command
+    metadata: {}
+    data:
+      cluster_type: in
+      ieee: '{{device_ieee}}'
+      endpoint_id: 1
+      cluster_id: 57348
+      command: 2
+      command_type: server
+      params:
+        data: '{{codedata}}'
+        code: '{{codedata}}'
+  alias: Moes IR control
+  description: 'script to send commands from MOES UFO-R11 controller '
+  mode: queued
+  max: 10
